@@ -1,0 +1,5 @@
+venv/
+__pycache__/
+data/clean/s2/
+experiments/
+logs/

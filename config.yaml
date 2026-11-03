@@ -1,0 +1,62 @@
+station:
+  code_site: H0203020
+  code_station: H020302002
+  longitude: 4.361
+  latitude: 47.96178
+
+zone:
+  bbox: [4.26, 47.86, 4.46, 48.06]   # ouest, sud, est, nord
+
+periode:
+  debut: "2015-01-01"
+
+hubeau:
+  base_url: https://hubeau.eaufrance.fr/api/v2/hydrometrie
+  grandeur: QmnJ
+  taille_page: 20000
+  timeout: 30
+
+chemins:
+  raw: data/raw
+  clean: data/clean
+  logs: logs
+
+nettoyage:
+  interpolation_max_jours: 3     # trous de 3 jours max interpolés
+  max_manquants_pct: 5           # au-delà, l'étape échoue
+
+
+sentinel2:
+  stac_url: https://planetarycomputer.microsoft.com/api/stac/v1
+  collection: sentinel-2-l2a
+  annees: [2016, 2026]          # première et dernière année du catalogue
+  max_nuages_tuile: 80          # filtre large, le vrai filtre est sur notre zone
+
+# Critères d'une image utilisable (mesurés sur NOTRE zone)
+utilisable:
+  couverture_min_pct: 50
+  nuages_max_pct: 20
+  ombres_max_pct: 5
+  neige_max_pct: 5
+
+
+crues:
+  seuil_m3s: 10          # un jour de crue = débit supérieur à ce seuil
+  fenetre_jours: 3       # image "proche" = à moins de 3 jours
+
+
+sentinel1:
+  stac_url: https://planetarycomputer.microsoft.com/api/stac/v1
+  collection: sentinel-1-grd
+  annees: [2015, 2026]
+
+images_nettoyees:
+  annees: [2018]                       # années à traiter par défaut
+  bandes: [B02, B03, B04, B08]         # bleu, vert, rouge, proche infrarouge
+  scl_mauvais: [0, 1, 3, 8, 9, 10, 11] # pas de données, saturé, ombre, nuages, cirrus, neige
+
+controle_images:
+  valide_min_pct: 30          # une image avec moins de pixels valides échoue
+  reflectance_p999_max: 1.0   # 99,9 % des pixels doivent rester sous 1
+  pixels_sup1_max_pct: 0.05   # part maximale de pixels au-dessus de 1
+  ecart_index_max_pct: 1.0    # écart toléré entre l'index et le fichier
