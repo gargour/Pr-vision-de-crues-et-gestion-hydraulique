@@ -123,12 +123,3 @@ experiments/          essais hors pipeline (détection d'eau par radar), non mai
 - **Images nettoyées** : 42 images (40 pour 2018, 2 pour 2019), 776 Mo, pixels valides de 49,8 % à 100 % (médiane 99,2 %).
 - **Exécution complète** : environ 5 minutes quand tout est déjà à jour.
 
-## Limites connues
-
-- Une seule station et une seule zone d'étude.
-- Les images nettoyées ne couvrent que 2018 (plus 2 images de test en 2019). Les 360 autres dates utilisables représentent environ 7 à 9 heures de calcul et 7 Go, estimation faite à partir de 2 images (67 à 86 secondes chacune).
-- La zone d'étude est à cheval sur deux tuiles Sentinel-2 : on garde une seule tuile par date, donc certaines images ne couvrent qu'environ la moitié de la zone. La fusion des tuiles n'est pas faite.
-- Les 213 jours de crue sont des jours, pas des événements : une même crue compte plusieurs fois. Le seuil de 10 m³/s est propre à cette station.
-- Le chiffre du radar repose sur les dates de passage du catalogue, pas sur des images vérifiées une par une. Les images radar ne sont pas téléchargées.
-- Aucune image optique utilisable avant le 20 février 2018 : la grande crue de janvier 2018 n'a pas d'image optique.
-- Pas de planification, de reprise automatique ni d'alertes : cela relève de l'orchestrateur.
