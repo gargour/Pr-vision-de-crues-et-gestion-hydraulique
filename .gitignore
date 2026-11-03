@@ -2,4 +2,4 @@ venv/
 __pycache__/
 data/clean/s2/
 experiments/
-logs/
+logs/data/clean/debit_corrompu.csv
