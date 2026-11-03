@@ -1,0 +1,353 @@
+schema: '2.0'
+stages:
+  hubeau:
+    cmd: python -m src.sources.hubeau
+    deps:
+    - path: src/common.py
+      hash: md5
+      md5: d9d4e61419317e17083e14391db29db5
+      size: 927
+    - path: src/sources/hubeau.py
+      hash: md5
+      md5: 3a7d6a4b3ab2779bf32eda59257fbea8
+      size: 2733
+    params:
+      config.yaml:
+        hubeau:
+          base_url: https://hubeau.eaufrance.fr/api/v2/hydrometrie
+          grandeur: QmnJ
+          taille_page: 20000
+          timeout: 30
+        periode:
+          debut: '2015-01-01'
+        station:
+          code_site: H0203020
+          code_station: H020302002
+          longitude: 4.361
+          latitude: 47.96178
+    outs:
+    - path: data/raw/hubeau_H0203020_QmnJ.csv
+      hash: md5
+      md5: d41a7548b1125e5161509d4769b91d3e
+      size: 1158978
+  clean_hubeau:
+    cmd: python -m src.cleaning.clean_hubeau
+    deps:
+    - path: data/raw/hubeau_H0203020_QmnJ.csv
+      hash: md5
+      md5: d41a7548b1125e5161509d4769b91d3e
+      size: 1158978
+    - path: src/cleaning/clean_hubeau.py
+      hash: md5
+      md5: ebfdb55c14d3420538309608a894c6b7
+      size: 4139
+    - path: src/common.py
+      hash: md5
+      md5: d9d4e61419317e17083e14391db29db5
+      size: 927
+    params:
+      config.yaml:
+        hubeau:
+          base_url: https://hubeau.eaufrance.fr/api/v2/hydrometrie
+          grandeur: QmnJ
+          taille_page: 20000
+          timeout: 30
+        nettoyage:
+          interpolation_max_jours: 3
+          max_manquants_pct: 5
+        station:
+          code_site: H0203020
+          code_station: H020302002
+          longitude: 4.361
+          latitude: 47.96178
+    outs:
+    - path: data/clean/hubeau_H0203020_daily.csv
+      hash: md5
+      md5: 3ba66990719a6ab73c77820279a42fad
+      size: 277531
+  plot_hubeau:
+    cmd: python -m src.cleaning.plot_hubeau
+    deps:
+    - path: data/clean/hubeau_H0203020_daily.csv
+      hash: md5
+      md5: 3ba66990719a6ab73c77820279a42fad
+      size: 277531
+    - path: src/cleaning/plot_hubeau.py
+      hash: md5
+      md5: e79d5878fd7f03d51caba1342a0b754a
+      size: 1786
+    - path: src/common.py
+      hash: md5
+      md5: d9d4e61419317e17083e14391db29db5
+      size: 927
+    outs:
+    - path: data/clean/serie_debit.png
+      hash: md5
+      md5: 188e47bbbd3b28e698d8fd4d1ff02f92
+      size: 133897
+  sentinel2_catalog:
+    cmd: python -m src.sources.sentinel2_catalog
+    deps:
+    - path: src/common.py
+      hash: md5
+      md5: d9d4e61419317e17083e14391db29db5
+      size: 927
+    - path: src/sources/sentinel2.py
+      hash: md5
+      md5: 8db268012dde43313dbf168018024509
+      size: 794
+    - path: src/sources/sentinel2_catalog.py
+      hash: md5
+      md5: bce763596a672c9398cbd6fc360f103b
+      size: 3963
+    params:
+      config.yaml:
+        sentinel2:
+          stac_url: https://planetarycomputer.microsoft.com/api/stac/v1
+          collection: sentinel-2-l2a
+          annees:
+          - 2016
+          - 2026
+          max_nuages_tuile: 80
+        zone:
+          bbox:
+          - 4.26
+          - 47.86
+          - 4.46
+          - 48.06
+    outs:
+    - path: data/raw/sentinel2_catalogue.csv
+      hash: md5
+      md5: 545b3d0d288430cc9c8ff106f444745a
+      size: 192036
+  analyse_catalogue:
+    cmd: python -m src.cleaning.analyse_catalogue
+    deps:
+    - path: data/clean/hubeau_H0203020_daily.csv
+      hash: md5
+      md5: 3ba66990719a6ab73c77820279a42fad
+      size: 277531
+    - path: data/raw/sentinel2_catalogue.csv
+      hash: md5
+      md5: 545b3d0d288430cc9c8ff106f444745a
+      size: 192036
+    - path: src/cleaning/analyse_catalogue.py
+      hash: md5
+      md5: 3e91ae201a367a95fb88592c0959d484
+      size: 3538
+    - path: src/common.py
+      hash: md5
+      md5: d9d4e61419317e17083e14391db29db5
+      size: 927
+    params:
+      config.yaml:
+        crues:
+          seuil_m3s: 10
+          fenetre_jours: 3
+        station:
+          code_site: H0203020
+          code_station: H020302002
+          longitude: 4.361
+          latitude: 47.96178
+        utilisable:
+          couverture_min_pct: 50
+          nuages_max_pct: 20
+          ombres_max_pct: 5
+          neige_max_pct: 5
+    outs:
+    - path: data/raw/sentinel2_dates_utiles.csv
+      hash: md5
+      md5: ab34baff550a94d825fc4ef58ebaa7c4
+      size: 33759
+  validation:
+    cmd: python -m src.validation.valider
+    deps:
+    - path: data/clean/hubeau_H0203020_daily.csv
+      hash: md5
+      md5: 3ba66990719a6ab73c77820279a42fad
+      size: 277531
+    - path: data/raw/sentinel2_dates_utiles.csv
+      hash: md5
+      md5: ab34baff550a94d825fc4ef58ebaa7c4
+      size: 33759
+    - path: src/common.py
+      hash: md5
+      md5: d9d4e61419317e17083e14391db29db5
+      size: 927
+    - path: src/validation
+      hash: md5
+      md5: 12cbbb1a6aea70d91f0e60c61848bd2f.dir
+      size: 20771
+      nfiles: 6
+    params:
+      config.yaml:
+        nettoyage:
+          interpolation_max_jours: 3
+          max_manquants_pct: 5
+    outs:
+    - path: reports/validation.json
+      hash: md5
+      md5: f416daf9be65510f39eca1cca96dec26
+      size: 209
+  sentinel1_catalog:
+    cmd: python -m src.sources.sentinel1_catalog
+    deps:
+    - path: data/clean/hubeau_H0203020_daily.csv
+      hash: md5
+      md5: 3ba66990719a6ab73c77820279a42fad
+      size: 277531
+    - path: data/raw/sentinel2_dates_utiles.csv
+      hash: md5
+      md5: ab34baff550a94d825fc4ef58ebaa7c4
+      size: 33759
+    - path: reports/validation.json
+      hash: md5
+      md5: f416daf9be65510f39eca1cca96dec26
+      size: 209
+    - path: src/common.py
+      hash: md5
+      md5: d9d4e61419317e17083e14391db29db5
+      size: 927
+    - path: src/sources/sentinel1_catalog.py
+      hash: md5
+      md5: ac51f473ef59a192a82c4d8309fddb0f
+      size: 4751
+    params:
+      config.yaml:
+        crues:
+          seuil_m3s: 10
+          fenetre_jours: 3
+        sentinel1:
+          stac_url: https://planetarycomputer.microsoft.com/api/stac/v1
+          collection: sentinel-1-grd
+          annees:
+          - 2015
+          - 2026
+        station:
+          code_site: H0203020
+          code_station: H020302002
+          longitude: 4.361
+          latitude: 47.96178
+        zone:
+          bbox:
+          - 4.26
+          - 47.86
+          - 4.46
+          - 48.06
+    outs:
+    - path: data/raw/sentinel1_catalogue.csv
+      hash: md5
+      md5: e37b4989994f3e774c0912036795eef3
+      size: 298573
+  build_s2_dataset:
+    cmd: python -m src.cleaning.build_s2_dataset
+    deps:
+    - path: data/raw/sentinel2_dates_utiles.csv
+      hash: md5
+      md5: ab34baff550a94d825fc4ef58ebaa7c4
+      size: 33759
+    - path: reports/validation.json
+      hash: md5
+      md5: f416daf9be65510f39eca1cca96dec26
+      size: 209
+    - path: src/cleaning/build_s2_dataset.py
+      hash: md5
+      md5: 2466e5947856d3fd9149c148220244ec
+      size: 6186
+    - path: src/common.py
+      hash: md5
+      md5: d9d4e61419317e17083e14391db29db5
+      size: 927
+    - path: src/sources/sentinel2.py
+      hash: md5
+      md5: 8db268012dde43313dbf168018024509
+      size: 794
+    params:
+      config.yaml:
+        images_nettoyees:
+          annees:
+          - 2018
+          bandes:
+          - B02
+          - B03
+          - B04
+          - B08
+          scl_mauvais:
+          - 0
+          - 1
+          - 3
+          - 8
+          - 9
+          - 10
+          - 11
+        sentinel2:
+          stac_url: https://planetarycomputer.microsoft.com/api/stac/v1
+          collection: sentinel-2-l2a
+          annees:
+          - 2016
+          - 2026
+          max_nuages_tuile: 80
+        zone:
+          bbox:
+          - 4.26
+          - 47.86
+          - 4.46
+          - 48.06
+    outs:
+    - path: data/clean/s2
+      hash: md5
+      md5: f3a2d9da67f9618b6fad32a16ccaa79a.dir
+      size: 775654408
+      nfiles: 42
+    - path: data/clean/s2_index.csv
+      hash: md5
+      md5: 02264b3b25dc28afc1cb4bd39d25afa1
+      size: 5147
+  check_s2_dataset:
+    cmd: python -m src.cleaning.check_s2_dataset
+    deps:
+    - path: data/clean/s2
+      hash: md5
+      md5: f3a2d9da67f9618b6fad32a16ccaa79a.dir
+      size: 775654408
+      nfiles: 42
+    - path: data/clean/s2_index.csv
+      hash: md5
+      md5: 02264b3b25dc28afc1cb4bd39d25afa1
+      size: 5147
+    - path: src/cleaning/check_s2_dataset.py
+      hash: md5
+      md5: 54149a32ce40c2cb8f2f2bc96f786da9
+      size: 4899
+    - path: src/common.py
+      hash: md5
+      md5: d9d4e61419317e17083e14391db29db5
+      size: 927
+    params:
+      config.yaml:
+        controle_images:
+          valide_min_pct: 30
+          reflectance_p999_max: 1.0
+          pixels_sup1_max_pct: 0.05
+          ecart_index_max_pct: 1.0
+        images_nettoyees:
+          annees:
+          - 2018
+          bandes:
+          - B02
+          - B03
+          - B04
+          - B08
+          scl_mauvais:
+          - 0
+          - 1
+          - 3
+          - 8
+          - 9
+          - 10
+          - 11
+    outs:
+    - path: data/clean/s2_controle.png
+      hash: md5
+      md5: c1ddc773b335db7f4455351b2ecbda33
+      size: 2467350

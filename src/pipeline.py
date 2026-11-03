@@ -14,6 +14,7 @@ ETAPES = [
     ("plot_hubeau",       "src.cleaning.plot_hubeau"),
     ("sentinel2_catalog", "src.sources.sentinel2_catalog"),
     ("analyse_catalogue", "src.cleaning.analyse_catalogue"),
+    ("validation",        "src.validation.valider"),
     ("sentinel1_catalog", "src.sources.sentinel1_catalog"),
     ("build_s2_dataset",  "src.cleaning.build_s2_dataset"),
     ("check_s2_dataset",  "src.cleaning.check_s2_dataset"),

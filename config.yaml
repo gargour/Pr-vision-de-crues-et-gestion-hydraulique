@@ -20,11 +20,11 @@ chemins:
   raw: data/raw
   clean: data/clean
   logs: logs
+  reports: reports
 
 nettoyage:
   interpolation_max_jours: 3     # trous de 3 jours max interpolés
   max_manquants_pct: 5           # au-delà, l'étape échoue
-
 
 sentinel2:
   stac_url: https://planetarycomputer.microsoft.com/api/stac/v1
@@ -39,11 +39,9 @@ utilisable:
   ombres_max_pct: 5
   neige_max_pct: 5
 
-
 crues:
-  seuil_m3s: 10          # un jour de crue = débit supérieur à ce seuil
+  seuil_m3s: 10         # un jour de crue = débit supérieur à ce seuil
   fenetre_jours: 3       # image "proche" = à moins de 3 jours
-
 
 sentinel1:
   stac_url: https://planetarycomputer.microsoft.com/api/stac/v1

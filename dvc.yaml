@@ -1,0 +1,133 @@
+vars:
+  - config.yaml
+
+stages:
+  hubeau:
+    cmd: python -m src.sources.hubeau
+    deps:
+      - src/sources/hubeau.py
+      - src/common.py
+    params:
+      - config.yaml:
+          - station
+          - hubeau
+          - periode
+    outs:
+      - ${chemins.raw}/hubeau_${station.code_site}_${hubeau.grandeur}.csv
+
+  clean_hubeau:
+    cmd: python -m src.cleaning.clean_hubeau
+    deps:
+      - src/cleaning/clean_hubeau.py
+      - src/common.py
+      - ${chemins.raw}/hubeau_${station.code_site}_${hubeau.grandeur}.csv
+    params:
+      - config.yaml:
+          - station
+          - hubeau
+          - nettoyage
+    outs:
+      - ${chemins.clean}/hubeau_${station.code_site}_daily.csv
+
+  plot_hubeau:
+    cmd: python -m src.cleaning.plot_hubeau
+    deps:
+      - src/cleaning/plot_hubeau.py
+      - src/common.py
+      - ${chemins.clean}/hubeau_${station.code_site}_daily.csv
+    outs:
+      - ${chemins.clean}/serie_debit.png
+
+  sentinel2_catalog:
+    cmd: python -m src.sources.sentinel2_catalog
+    deps:
+      - src/sources/sentinel2.py
+      - src/sources/sentinel2_catalog.py
+      - src/common.py
+    params:
+      - config.yaml:
+          - zone
+          - sentinel2
+    outs:
+      - ${chemins.raw}/sentinel2_catalogue.csv:
+          persist: true
+
+  analyse_catalogue:
+    cmd: python -m src.cleaning.analyse_catalogue
+    deps:
+      - src/cleaning/analyse_catalogue.py
+      - src/common.py
+      - ${chemins.raw}/sentinel2_catalogue.csv
+      - ${chemins.clean}/hubeau_${station.code_site}_daily.csv
+    params:
+      - config.yaml:
+          - station
+          - utilisable
+          - crues
+    outs:
+      - ${chemins.raw}/sentinel2_dates_utiles.csv
+
+  validation:
+    cmd: python -m src.validation.valider
+    deps:
+      - src/validation
+      - src/common.py
+      - ${chemins.clean}/hubeau_${station.code_site}_daily.csv
+      - ${chemins.raw}/sentinel2_dates_utiles.csv
+    params:
+      - config.yaml:
+          - nettoyage
+    metrics:
+      - ${chemins.reports}/validation.json:
+          cache: false
+
+  sentinel1_catalog:
+    cmd: python -m src.sources.sentinel1_catalog
+    deps:
+      - src/sources/sentinel1_catalog.py
+      - src/common.py
+      - ${chemins.reports}/validation.json
+      - ${chemins.clean}/hubeau_${station.code_site}_daily.csv
+      - ${chemins.raw}/sentinel2_dates_utiles.csv
+    params:
+      - config.yaml:
+          - station
+          - zone
+          - sentinel1
+          - crues
+    outs:
+      - ${chemins.raw}/sentinel1_catalogue.csv:
+          persist: true
+
+  build_s2_dataset:
+    cmd: python -m src.cleaning.build_s2_dataset
+    deps:
+      - src/cleaning/build_s2_dataset.py
+      - src/sources/sentinel2.py
+      - src/common.py
+      - ${chemins.reports}/validation.json
+      - ${chemins.raw}/sentinel2_dates_utiles.csv
+    params:
+      - config.yaml:
+          - zone
+          - sentinel2
+          - images_nettoyees
+    outs:
+      - ${chemins.clean}/s2:
+          persist: true
+      - ${chemins.clean}/s2_index.csv:
+          persist: true
+
+  check_s2_dataset:
+    cmd: python -m src.cleaning.check_s2_dataset
+    deps:
+      - src/cleaning/check_s2_dataset.py
+      - src/common.py
+      - ${chemins.clean}/s2
+      - ${chemins.clean}/s2_index.csv
+    params:
+      - config.yaml:
+          - images_nettoyees
+          - controle_images
+    outs:
+      - ${chemins.clean}/s2_controle.png

@@ -1,0 +1,9 @@
+{
+  "debit_jours": 4324,
+  "debit_debut": "2015-01-01",
+  "debit_fin": "2026-11-02",
+  "debit_manquants_pct": 0.0,
+  "debit_douteux": 429,
+  "images_dates_utilisables": 401,
+  "erreurs_validation": 0
+}
