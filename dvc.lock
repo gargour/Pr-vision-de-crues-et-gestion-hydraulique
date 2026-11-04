@@ -384,9 +384,9 @@ stages:
       size: 927
     - path: src/reporting
       hash: md5
-      md5: fe8d2aece567bf873cd1e526bdd0dfe1.dir
-      size: 21349
-      nfiles: 4
+      md5: 8142897673c5b86c7419003a296f7be1.dir
+      size: 37923
+      nfiles: 6
     params:
       config.yaml:
         crues:
@@ -453,3 +453,91 @@ stages:
       hash: md5
       md5: 179e8666bde7e751645c9be594370ed6
       size: 704
+  rapport_html:
+    cmd: python -m src.reporting.rapport_html
+    deps:
+    - path: data/clean/s2_controle.png
+      hash: md5
+      md5: c1ddc773b335db7f4455351b2ecbda33
+      size: 2467350
+    - path: data/clean/serie_debit.png
+      hash: md5
+      md5: 188e47bbbd3b28e698d8fd4d1ff02f92
+      size: 133897
+    - path: reports/stats.json
+      hash: md5
+      md5: 179e8666bde7e751645c9be594370ed6
+      size: 704
+    - path: reports/validation.json
+      hash: md5
+      md5: f416daf9be65510f39eca1cca96dec26
+      size: 209
+    - path: src/common.py
+      hash: md5
+      md5: d9d4e61419317e17083e14391db29db5
+      size: 927
+    - path: src/reporting
+      hash: md5
+      md5: 8142897673c5b86c7419003a296f7be1.dir
+      size: 37923
+      nfiles: 6
+    params:
+      config.yaml:
+        data_card:
+          licences:
+            hubeau: Données publiques Hub'Eau (licence à confirmer sur 
+              hubeau.eaufrance.fr)
+            sentinel: Données Copernicus Sentinel, accès libre et gratuit 
+              (conditions à confirmer sur dataspace.copernicus.eu)
+          biais:
+          - Une seule station et une seule zone d'étude.
+          - Les images optiques sont rares pendant les crues (nuages) ; le radar
+            comble ce manque.
+          - 'Les jours de crue sont des jours, pas des événements : une même crue
+            compte plusieurs fois.'
+          - Les valeurs de débit de qualité douteuse sont concentrées en étiage.
+          - La zone est à cheval sur deux tuiles Sentinel-2 ; on en garde une 
+            par date.
+          - Les images nettoyées ne couvrent que certaines années (voir 
+            images_nettoyees.annees).
+    outs:
+    - path: reports/rapport_qualite.html
+      hash: md5
+      md5: 254f7665225361d9d9c8239f75021a12
+      size: 3471592
+  derive:
+    cmd: python -m src.monitoring.derive
+    deps:
+    - path: configs/reference_stats.json
+      hash: md5
+      md5: e7b7a2ba1fcb2edda7e5148435f135f6
+      size: 597
+    - path: data/clean/hubeau_H0203020_daily.csv
+      hash: md5
+      md5: 3ba66990719a6ab73c77820279a42fad
+      size: 277531
+    - path: reports/stats.json
+      hash: md5
+      md5: 179e8666bde7e751645c9be594370ed6
+      size: 704
+    - path: src/common.py
+      hash: md5
+      md5: d9d4e61419317e17083e14391db29db5
+      size: 927
+    - path: src/monitoring
+      hash: md5
+      md5: 2ccb809fa1dd41e4c39af428878eecdd.dir
+      size: 17660
+      nfiles: 4
+    params:
+      config.yaml:
+        derive:
+          reference: configs/reference_stats.json
+          seuil_relatif_pct: 25
+          seuil_points: 5
+          echec_si_derive: false
+    outs:
+    - path: reports/derive.json
+      hash: md5
+      md5: 248edeb6a449dbdd262d3b6cf85f76b3
+      size: 582

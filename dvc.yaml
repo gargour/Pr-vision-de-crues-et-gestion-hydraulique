@@ -157,3 +157,33 @@ stages:
     metrics:
       - ${chemins.reports}/stats.json:
           cache: false
+
+  rapport_html:
+    cmd: python -m src.reporting.rapport_html
+    deps:
+      - src/reporting
+      - src/common.py
+      - ${chemins.reports}/validation.json
+      - ${chemins.reports}/stats.json
+      - ${chemins.clean}/serie_debit.png
+      - ${chemins.clean}/s2_controle.png
+    params:
+      - config.yaml:
+          - data_card
+    outs:
+      - ${chemins.reports}/rapport_qualite.html
+
+  derive:
+    cmd: python -m src.monitoring.derive
+    deps:
+      - src/monitoring
+      - src/common.py
+      - ${chemins.clean}/hubeau_${station.code_site}_daily.csv
+      - ${chemins.reports}/stats.json
+      - ${derive.reference}
+    params:
+      - config.yaml:
+          - derive
+    metrics:
+      - ${chemins.reports}/derive.json:
+          cache: false

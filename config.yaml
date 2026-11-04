@@ -71,3 +71,10 @@ data_card:
     - "Les valeurs de débit de qualité douteuse sont concentrées en étiage."
     - "La zone est à cheval sur deux tuiles Sentinel-2 ; on en garde une par date."
     - "Les images nettoyées ne couvrent que certaines années (voir images_nettoyees.annees)."
+
+
+derive:
+  reference: configs/reference_stats.json
+  seuil_relatif_pct: 25       # variation relative max du débit (moyenne, écart-type, quantiles)
+  seuil_points: 5             # variation max (en points) des pourcentages
+  echec_si_derive: false      # true : une dérive fait échouer l'étape

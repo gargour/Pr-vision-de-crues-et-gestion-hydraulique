@@ -1,0 +1,27 @@
+{
+  "figee_le": "2026-11-04",
+  "jours": 4324,
+  "debut": "2015-01-01",
+  "fin": "2026-11-02",
+  "colonnes": [
+    "date",
+    "debit_m3s",
+    "est_interpole",
+    "est_manquant",
+    "libelle_qualification",
+    "libelle_statut",
+    "qualite_douteuse"
+  ],
+  "debit_moyenne": 3.119,
+  "debit_ecart_type": 3.544,
+  "debit_q05": 0.35,
+  "debit_q25": 0.73,
+  "debit_q50": 1.814,
+  "debit_q75": 4.146,
+  "debit_q95": 9.969,
+  "debit_q99": 16.809,
+  "manquants_pct": 0.0,
+  "douteux_pct": 9.92,
+  "couverture_crues_optique_pct": 27.7,
+  "couverture_crues_radar_pct": 97.2
+}

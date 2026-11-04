@@ -1,0 +1,27 @@
+{
+  "reference_figee_le": "2026-11-04",
+  "derive": false,
+  "alertes": [],
+  "variations": {
+    "debit_moyenne": 0.0,
+    "debit_ecart_type": 0.0,
+    "debit_q05": 0.0,
+    "debit_q25": 0.0,
+    "debit_q50": 0.0,
+    "debit_q75": 0.0,
+    "debit_q95": 0.0,
+    "debit_q99": 0.0,
+    "manquants_pct": 0.0,
+    "douteux_pct": 0.0,
+    "couverture_crues_optique_pct": 0.0,
+    "couverture_crues_radar_pct": 0.0
+  },
+  "profil_reference": {
+    "jours": 4324,
+    "fin": "2026-11-02"
+  },
+  "profil_actuel": {
+    "jours": 4324,
+    "fin": "2026-11-02"
+  }
+}

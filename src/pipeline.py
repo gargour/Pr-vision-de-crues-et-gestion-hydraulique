@@ -18,10 +18,16 @@ ETAPES = [
     ("sentinel1_catalog", "src.sources.sentinel1_catalog"),
     ("build_s2_dataset",  "src.cleaning.build_s2_dataset"),
     ("check_s2_dataset",  "src.cleaning.check_s2_dataset"),
-        ("check_s2_dataset",  "src.cleaning.check_s2_dataset"),
+    ("check_s2_dataset",  "src.cleaning.check_s2_dataset"),
     ("data_card",         "src.reporting.data_card"),
+    ("data_card",         "src.reporting.data_card"),
+    ("rapport_html",      "src.reporting.rapport_html"),
+    ("rapport_html",      "src.reporting.rapport_html"),
+    ("derive",            "src.monitoring.derive"),
 
 ]
+
+
 
 
 def choisir(de=None, seulement=None):
