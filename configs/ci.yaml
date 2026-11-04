@@ -1,0 +1,59 @@
+station:
+  code_site: H0203020
+  code_station: H020302002
+  longitude: 4.361
+  latitude: 47.96178
+
+zone:
+  bbox: [4.26, 47.86, 4.46, 48.06]
+
+periode:
+  debut: "2024-01-01"          # échantillon : 2024 seulement
+
+hubeau:
+  base_url: https://hubeau.eaufrance.fr/api/v2/hydrometrie
+  grandeur: QmnJ
+  taille_page: 20000
+  timeout: 30
+
+chemins:
+  raw: data_ci/raw
+  clean: data_ci/clean
+  logs: logs
+  reports: reports_ci
+
+nettoyage:
+  interpolation_max_jours: 3
+  max_manquants_pct: 5
+
+sentinel2:
+  stac_url: https://planetarycomputer.microsoft.com/api/stac/v1
+  collection: sentinel-2-l2a
+  annees: [2024, 2024]         # échantillon
+  max_nuages_tuile: 80
+
+utilisable:
+  couverture_min_pct: 50
+  nuages_max_pct: 20
+  ombres_max_pct: 5
+  neige_max_pct: 5
+
+crues:
+  seuil_m3s: 10
+  fenetre_jours: 3
+
+sentinel1:
+  stac_url: https://planetarycomputer.microsoft.com/api/stac/v1
+  collection: sentinel-1-grd
+  annees: [2024, 2024]         # échantillon
+
+images_nettoyees:
+  annees: [2024]
+  bandes: [B02, B03, B04, B08]
+  scl_mauvais: [0, 1, 3, 8, 9, 10, 11]
+
+controle_images:
+  valide_min_pct: 30
+  reflectance_p999_max: 1.0
+  pixels_sup1_max_pct: 0.05
+  ecart_index_max_pct: 1.0

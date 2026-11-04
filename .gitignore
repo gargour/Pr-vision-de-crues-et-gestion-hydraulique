@@ -4,3 +4,5 @@ data/clean/s2/
 data/clean/debit_corrompu.csv
 experiments/
 logs/
+data_ci/
+reports_ci/
