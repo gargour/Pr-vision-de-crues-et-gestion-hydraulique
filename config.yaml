@@ -58,3 +58,16 @@ controle_images:
   reflectance_p999_max: 1.0   # 99,9 % des pixels doivent rester sous 1
   pixels_sup1_max_pct: 0.05   # part maximale de pixels au-dessus de 1
   ecart_index_max_pct: 1.0    # écart toléré entre l'index et le fichier
+
+
+data_card:
+  licences:
+    hubeau: "Données publiques Hub'Eau (licence à confirmer sur hubeau.eaufrance.fr)"
+    sentinel: "Données Copernicus Sentinel, accès libre et gratuit (conditions à confirmer sur dataspace.copernicus.eu)"
+  biais:
+    - "Une seule station et une seule zone d'étude."
+    - "Les images optiques sont rares pendant les crues (nuages) ; le radar comble ce manque."
+    - "Les jours de crue sont des jours, pas des événements : une même crue compte plusieurs fois."
+    - "Les valeurs de débit de qualité douteuse sont concentrées en étiage."
+    - "La zone est à cheval sur deux tuiles Sentinel-2 ; on en garde une par date."
+    - "Les images nettoyées ne couvrent que certaines années (voir images_nettoyees.annees)."

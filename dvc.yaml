@@ -131,3 +131,29 @@ stages:
           - controle_images
     outs:
       - ${chemins.clean}/s2_controle.png
+
+  data_card:
+    cmd: python -m src.reporting.data_card
+    deps:
+      - src/reporting
+      - src/common.py
+      - ${chemins.clean}/hubeau_${station.code_site}_daily.csv
+      - ${chemins.raw}/sentinel2_catalogue.csv
+      - ${chemins.raw}/sentinel2_dates_utiles.csv
+      - ${chemins.raw}/sentinel1_catalogue.csv
+      - ${chemins.clean}/s2_index.csv
+      - ${chemins.clean}/s2_controle.png
+    params:
+      - config.yaml:
+          - station
+          - zone
+          - crues
+          - utilisable
+          - nettoyage
+          - images_nettoyees
+          - data_card
+    outs:
+      - ${chemins.reports}/data_card.md
+    metrics:
+      - ${chemins.reports}/stats.json:
+          cache: false

@@ -18,6 +18,9 @@ ETAPES = [
     ("sentinel1_catalog", "src.sources.sentinel1_catalog"),
     ("build_s2_dataset",  "src.cleaning.build_s2_dataset"),
     ("check_s2_dataset",  "src.cleaning.check_s2_dataset"),
+        ("check_s2_dataset",  "src.cleaning.check_s2_dataset"),
+    ("data_card",         "src.reporting.data_card"),
+
 ]
 
 
@@ -76,3 +79,5 @@ def main(argv=None):
 
 if __name__ == "__main__":
     sys.exit(main())
+
+

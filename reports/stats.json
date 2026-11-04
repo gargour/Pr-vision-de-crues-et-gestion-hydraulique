@@ -1,0 +1,34 @@
+{
+  "debit": {
+    "jours": 4324,
+    "debut": "2015-01-01",
+    "fin": "2026-11-02",
+    "moyenne_m3s": 3.12,
+    "min_m3s": 0.2,
+    "max_m3s": 34.44,
+    "manquants_pct": 0.0,
+    "douteux": 429
+  },
+  "sentinel2": {
+    "images_cataloguees": 1902,
+    "dates_utilisables": 401,
+    "images_nettoyees": 42,
+    "taille_images_nettoyees_mo": 776
+  },
+  "sentinel1": {
+    "scenes": 2978
+  },
+  "crues": {
+    "seuil_m3s": 10,
+    "fenetre_jours": 3,
+    "jours_de_crue": 213,
+    "couverture_optique": {
+      "jours_couverts": 59,
+      "ecart_median_jours": 8.0
+    },
+    "couverture_radar": {
+      "jours_couverts": 207,
+      "ecart_median_jours": 1.0
+    }
+  }
+}
