@@ -1,0 +1,13 @@
+venv/
+.git/
+.github/
+.dvc/
+__pycache__/
+**/__pycache__/
+data/
+data_ci/
+reports/
+reports_ci/
+logs/
+experiments/
+*.zip
