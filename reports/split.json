@@ -1,26 +1,26 @@
 {
   "train": {
     "debut": "2015-01-01",
-    "fin": "2021-12-31",
-    "jours": 2557,
-    "jours_crue": 146,
-    "optique_dispo_crue_pct": 11.6,
-    "radar_dispo_crue_pct": 92.5
+    "fin": "2017-12-31",
+    "jours": 1096,
+    "jours_crue": 63,
+    "optique_dispo_crue_pct": 6.3,
+    "radar_dispo_crue_pct": 82.5
   },
   "val": {
-    "debut": "2022-01-01",
-    "fin": "2023-12-31",
+    "debut": "2018-01-01",
+    "fin": "2019-12-31",
     "jours": 730,
-    "jours_crue": 10,
-    "optique_dispo_crue_pct": 30.0,
-    "radar_dispo_crue_pct": 90.0
+    "jours_crue": 69,
+    "optique_dispo_crue_pct": 17.4,
+    "radar_dispo_crue_pct": 100.0
   },
   "test": {
-    "debut": "2024-01-01",
+    "debut": "2020-01-01",
     "fin": "2026-11-02",
-    "jours": 1037,
-    "jours_crue": 57,
-    "optique_dispo_crue_pct": 8.8,
-    "radar_dispo_crue_pct": 100.0
+    "jours": 2498,
+    "jours_crue": 81,
+    "optique_dispo_crue_pct": 11.1,
+    "radar_dispo_crue_pct": 98.8
   }
 }
