@@ -541,3 +541,83 @@ stages:
       hash: md5
       md5: 248edeb6a449dbdd262d3b6cf85f76b3
       size: 582
+  alignement:
+    cmd: python -m src.alignment.aligner
+    deps:
+    - path: data/clean/hubeau_H0203020_daily.csv
+      hash: md5
+      md5: 3ba66990719a6ab73c77820279a42fad
+      size: 277531
+    - path: data/raw/sentinel1_catalogue.csv
+      hash: md5
+      md5: e37b4989994f3e774c0912036795eef3
+      size: 298573
+    - path: data/raw/sentinel2_dates_utiles.csv
+      hash: md5
+      md5: ab34baff550a94d825fc4ef58ebaa7c4
+      size: 33759
+    - path: src/alignment
+      hash: md5
+      md5: 0de2017b82f342aa272439ba45df47c5.dir
+      size: 19628
+      nfiles: 6
+    - path: src/common.py
+      hash: md5
+      md5: d9d4e61419317e17083e14391db29db5
+      size: 927
+    params:
+      config.yaml:
+        alignement:
+          fenetre_jours: 3
+        crues:
+          seuil_m3s: 10
+          fenetre_jours: 3
+        station:
+          code_site: H0203020
+          code_station: H020302002
+          longitude: 4.361
+          latitude: 47.96178
+    outs:
+    - path: data/clean/aligned.csv
+      hash: md5
+      md5: 6b6e8fccbf7c9bac747dad053c4882c9
+      size: 266675
+  decoupage:
+    cmd: python -m src.alignment.decoupage
+    deps:
+    - path: data/clean/aligned.csv
+      hash: md5
+      md5: 6b6e8fccbf7c9bac747dad053c4882c9
+      size: 266675
+    - path: src/alignment
+      hash: md5
+      md5: 0de2017b82f342aa272439ba45df47c5.dir
+      size: 19628
+      nfiles: 6
+    - path: src/common.py
+      hash: md5
+      md5: d9d4e61419317e17083e14391db29db5
+      size: 927
+    - path: src/validation
+      hash: md5
+      md5: 12cbbb1a6aea70d91f0e60c61848bd2f.dir
+      size: 20771
+      nfiles: 6
+    params:
+      config.yaml:
+        crues:
+          seuil_m3s: 10
+          fenetre_jours: 3
+        decoupage:
+          train_fin: '2021-12-31'
+          val_fin: '2023-12-31'
+          min_jours_crue: 5
+    outs:
+    - path: data/clean/split.csv
+      hash: md5
+      md5: dcb25c92e03ce79cc0956ed566b3a976
+      size: 75350
+    - path: reports/split.json
+      hash: md5
+      md5: 3f84e12d7e789dbc133a19034aea2ec8
+      size: 564

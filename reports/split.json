@@ -1,0 +1,26 @@
+{
+  "train": {
+    "debut": "2015-01-01",
+    "fin": "2021-12-31",
+    "jours": 2557,
+    "jours_crue": 146,
+    "optique_dispo_crue_pct": 11.6,
+    "radar_dispo_crue_pct": 92.5
+  },
+  "val": {
+    "debut": "2022-01-01",
+    "fin": "2023-12-31",
+    "jours": 730,
+    "jours_crue": 10,
+    "optique_dispo_crue_pct": 30.0,
+    "radar_dispo_crue_pct": 90.0
+  },
+  "test": {
+    "debut": "2024-01-01",
+    "fin": "2026-11-02",
+    "jours": 1037,
+    "jours_crue": 57,
+    "optique_dispo_crue_pct": 8.8,
+    "radar_dispo_crue_pct": 100.0
+  }
+}

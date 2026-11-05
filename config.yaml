@@ -78,3 +78,16 @@ derive:
   seuil_relatif_pct: 25       # variation relative max du débit (moyenne, écart-type, quantiles)
   seuil_points: 5             # variation max (en points) des pourcentages
   echec_si_derive: false      # true : une dérive fait échouer l'étape
+
+alignement:
+  fenetre_jours: 3            # une image est « disponible » si elle date de 3 jours au plus
+
+decoupage:
+  train_fin: "2021-12-31"     # train : du début à cette date
+  val_fin: "2023-12-31"       # validation : jusqu'à cette date ; test : après
+  min_jours_crue: 5           # chaque ensemble doit contenir au moins ce nombre de jours de crue
+
+
+suivi:
+  tracking_uri: sqlite:///mlflow.db
+  experience: flood-forecasting

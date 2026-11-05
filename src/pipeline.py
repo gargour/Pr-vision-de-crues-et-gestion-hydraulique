@@ -16,15 +16,13 @@ ETAPES = [
     ("analyse_catalogue", "src.cleaning.analyse_catalogue"),
     ("validation",        "src.validation.valider"),
     ("sentinel1_catalog", "src.sources.sentinel1_catalog"),
+    ("alignement",        "src.alignment.aligner"),
+    ("decoupage",         "src.alignment.decoupage"),
     ("build_s2_dataset",  "src.cleaning.build_s2_dataset"),
     ("check_s2_dataset",  "src.cleaning.check_s2_dataset"),
-    ("check_s2_dataset",  "src.cleaning.check_s2_dataset"),
     ("data_card",         "src.reporting.data_card"),
-    ("data_card",         "src.reporting.data_card"),
-    ("rapport_html",      "src.reporting.rapport_html"),
     ("rapport_html",      "src.reporting.rapport_html"),
     ("derive",            "src.monitoring.derive"),
-
 ]
 
 

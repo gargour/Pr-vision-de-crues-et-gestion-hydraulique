@@ -8,3 +8,7 @@ data_ci/
 reports_ci/
 data/clean/debit_derive.csv
 reports/derive_test.json
+
+mlflow.db
+mlruns/
+mlartifacts/

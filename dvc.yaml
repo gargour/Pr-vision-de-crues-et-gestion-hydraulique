@@ -187,3 +187,37 @@ stages:
     metrics:
       - ${chemins.reports}/derive.json:
           cache: false
+
+
+  alignement:
+    cmd: python -m src.alignment.aligner
+    deps:
+      - src/alignment
+      - src/common.py
+      - ${chemins.clean}/hubeau_${station.code_site}_daily.csv
+      - ${chemins.raw}/sentinel2_dates_utiles.csv
+      - ${chemins.raw}/sentinel1_catalogue.csv
+    params:
+      - config.yaml:
+          - station
+          - alignement
+          - crues
+    outs:
+      - ${chemins.clean}/aligned.csv
+
+  decoupage:
+    cmd: python -m src.alignment.decoupage
+    deps:
+      - src/alignment
+      - src/validation
+      - src/common.py
+      - ${chemins.clean}/aligned.csv
+    params:
+      - config.yaml:
+          - decoupage
+          - crues
+    outs:
+      - ${chemins.clean}/split.csv
+    metrics:
+      - ${chemins.reports}/split.json:
+          cache: false
