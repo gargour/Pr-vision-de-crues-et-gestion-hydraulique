@@ -12,3 +12,5 @@ reports/derive_test.json
 mlflow.db
 mlruns/
 mlartifacts/
+data/clean/s1/
+data/clean/s1_index.csv

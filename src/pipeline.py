@@ -23,6 +23,9 @@ ETAPES = [
     ("data_card",         "src.reporting.data_card"),
     ("rapport_html",      "src.reporting.rapport_html"),
     ("derive",            "src.monitoring.derive"),
+    ("check_s2_dataset",  "src.cleaning.check_s2_dataset"),
+    ("build_s1_dataset",  "src.cleaning.build_s1_dataset"),
+    ("data_card",         "src.reporting.data_card"),
 ]
 
 

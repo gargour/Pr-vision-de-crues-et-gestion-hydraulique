@@ -40,7 +40,7 @@ utilisable:
   neige_max_pct: 5
 
 crues:
-  seuil_m3s: 10         # un jour de crue = débit supérieur à ce seuil
+  seuil_m3s: 10          # un jour de crue = débit supérieur à ce seuil
   fenetre_jours: 3       # image "proche" = à moins de 3 jours
 
 sentinel1:
@@ -59,7 +59,6 @@ controle_images:
   pixels_sup1_max_pct: 0.05   # part maximale de pixels au-dessus de 1
   ecart_index_max_pct: 1.0    # écart toléré entre l'index et le fichier
 
-
 data_card:
   licences:
     hubeau: "Données publiques Hub'Eau (licence à confirmer sur hubeau.eaufrance.fr)"
@@ -72,22 +71,29 @@ data_card:
     - "La zone est à cheval sur deux tuiles Sentinel-2 ; on en garde une par date."
     - "Les images nettoyées ne couvrent que certaines années (voir images_nettoyees.annees)."
 
-
 derive:
   reference: configs/reference_stats.json
-  seuil_relatif_pct: 25       # variation relative max du débit (moyenne, écart-type, quantiles)
-  seuil_points: 5             # variation max (en points) des pourcentages
-  echec_si_derive: false      # true : une dérive fait échouer l'étape
+  seuil_relatif_pct: 25
+  seuil_points: 5
+  echec_si_derive: false
 
 alignement:
   fenetre_jours: 3            # une image est « disponible » si elle date de 3 jours au plus
 
 decoupage:
-  train_fin: "2021-12-31"     # train : du début à cette date
-  val_fin: "2023-12-31"       # validation : jusqu'à cette date ; test : après
-  min_jours_crue: 5           # chaque ensemble doit contenir au moins ce nombre de jours de crue
-
+  train_fin: "2017-12-31"     # train : 2015-2017
+  val_fin: "2019-12-31"       # validation : 2018-2019 ; test : 2020-2026
+  min_jours_crue: 5
 
 suivi:
   tracking_uri: sqlite:///mlflow.db
   experience: flood-forecasting
+
+radar_nettoye:
+  stac_url: https://planetarycomputer.microsoft.com/api/stac/v1
+  collection: sentinel-1-rtc
+  annees: [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026]             # années à traiter par défaut
+  orbites: []                 # liste vide = toutes les orbites ; sinon ex. [110]
+  couverture_min_pct: 50      # couverture minimale de la zone pour garder une scène
+  taille_sortie: [376, 256]   # hauteur, largeur en pixels (zone réduite d'un facteur 6)
+  marge_bord_pixels: 2        # pixels retirés au bord de la scène

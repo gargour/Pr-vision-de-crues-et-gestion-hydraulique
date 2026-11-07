@@ -609,15 +609,15 @@ stages:
           seuil_m3s: 10
           fenetre_jours: 3
         decoupage:
-          train_fin: '2021-12-31'
-          val_fin: '2023-12-31'
+          train_fin: '2017-12-31'
+          val_fin: '2019-12-31'
           min_jours_crue: 5
     outs:
     - path: data/clean/split.csv
       hash: md5
-      md5: dcb25c92e03ce79cc0956ed566b3a976
-      size: 75350
+      md5: b166fd1e37685a2cdc1258bf462a068a
+      size: 73889
     - path: reports/split.json
       hash: md5
-      md5: 3f84e12d7e789dbc133a19034aea2ec8
-      size: 564
+      md5: 819b2ff4ca9ac4f6b3920cdfc3fe54ab
+      size: 563
