@@ -221,3 +221,21 @@ stages:
     metrics:
       - ${chemins.reports}/split.json:
           cache: false
+
+
+
+  build_s1_dataset:
+    cmd: python -m src.cleaning.build_s1_dataset
+    deps:
+      - src/cleaning/build_s1_dataset.py
+      - src/common.py
+    params:
+      - config.yaml:
+          - station
+          - zone
+          - radar_nettoye
+    outs:
+      - ${chemins.clean}/s1:
+          persist: true
+      - ${chemins.clean}/s1_index.csv:
+          persist: true

@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  pipeline:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: crue_pipeline
+    volumes:
+      - ./src:/app/src
+      - ./configs:/app/configs
+      - ./config.yaml:/app/config.yaml
+    environment:
+      - PYTHONUNBUFFERED=1
