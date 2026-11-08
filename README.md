@@ -65,7 +65,7 @@ python -m src.pipeline --de analyse_catalogue
 python -m src.pipeline --config configs/ci.yaml --seulement hubeau   # autre configuration
 ```
 
-### Les 12 étapes
+### Les 14 étapes
 
 | # | Étape | Rôle | Sortie principale |
 |---|---|---|---|
@@ -78,10 +78,11 @@ python -m src.pipeline --config configs/ci.yaml --seulement hubeau   # autre con
 | 7 | `sentinel1_catalog` | Catalogue radar, comparaison avec les crues | `data/raw/sentinel1_catalogue.csv` |
 | 8 | `build_s2_dataset` | Images nettoyées (4 bandes, nuages et ombres masqués) | `data/clean/s2/*.tif`, `s2_index.csv` |
 | 9 | `check_s2_dataset` | Contrôle automatique des images | `data/clean/s2_controle.png` |
-| 10 | `data_card` | Statistiques et fiche de données | `reports/data_card.md`, `stats.json` |
-| 11 | `rapport_html` | Rapport de qualité en une page | `reports/rapport_qualite.html` |
-| 12 | `derive` | Détection de dérive par rapport à une référence | `reports/derive.json` |
-
+| 10 | `alignment` | Appariement débit et dernière image disponible (masque, âge) | `data/clean/aligned.csv` |
+| 11 | `decoupage` | Découpage chronologique sans fuite (train/val/test) | `data/clean/split.csv` |
+| 12 | `data_card` | Statistiques et fiche de données | `reports/data_card.md`, `stats.json` |
+| 13 | `rapport_html` | Rapport de qualité en une page | `reports/rapport_qualite.html` |
+| 14 | `derive` | Détection de dérive par rapport à une référence | `reports/derive.json` |
 Une étape qui échoue arrête le pipeline et renvoie le code de sortie 1.
 
 ## Tests
@@ -90,7 +91,7 @@ Une étape qui échoue arrête le pipeline et renvoie le code de sortie 1.
 python -m pytest -v
 ```
 
-26 tests : schéma et valeurs du débit, doublons, valeurs manquantes et aberrantes, dates d'images, cohérence entre modalités (les dates d'images tombent dans la période du débit, avec une valeur), découpage train / validation / test sans fuite, détection de dérive. Les tests sur les données réelles sont ignorés si les données sont absentes.
+33 tests : schéma et valeurs du débit, doublons, valeurs manquantes et aberrantes, dates d'images, cohérence entre modalités (les dates d'images tombent dans la période du débit, avec une valeur), découpage train / validation / test sans fuite, détection de dérive. Les tests sur les données réelles sont ignorés si les données sont absentes.
 
 ### Démonstration d'un échec contrôlé
 
