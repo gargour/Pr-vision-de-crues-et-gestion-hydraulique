@@ -621,3 +621,48 @@ stages:
       hash: md5
       md5: 819b2ff4ca9ac4f6b3920cdfc3fe54ab
       size: 563
+  build_s1_dataset:
+    cmd: python -m src.cleaning.build_s1_dataset
+    deps:
+    - path: src/cleaning/build_s1_dataset.py
+      hash: md5
+      md5: dd425d27d909f26cb0e57c65fd222d3c
+      size: 7774
+    - path: src/common.py
+      hash: md5
+      md5: d9d4e61419317e17083e14391db29db5
+      size: 927
+    params:
+      config.yaml:
+        radar_nettoye:
+          stac_url: https://planetarycomputer.microsoft.com/api/stac/v1
+          collection: sentinel-1-rtc
+          annees:
+          - 2026
+          orbites: []
+          couverture_min_pct: 50
+          taille_sortie:
+          - 376
+          - 256
+          marge_bord_pixels: 2
+        station:
+          code_site: H0203020
+          code_station: H020302002
+          longitude: 4.361
+          latitude: 47.96178
+        zone:
+          bbox:
+          - 4.26
+          - 47.86
+          - 4.46
+          - 48.06
+    outs:
+    - path: data/clean/s1
+      hash: md5
+      md5: 7e3ee05a2a74a96ca6d22a7acdc7ac86.dir
+      size: 123507450
+      nfiles: 481
+    - path: data/clean/s1_index.csv
+      hash: md5
+      md5: b15a64358d8be85252c198fa8ced1690
+      size: 61585

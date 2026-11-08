@@ -92,7 +92,7 @@ suivi:
 radar_nettoye:
   stac_url: https://planetarycomputer.microsoft.com/api/stac/v1
   collection: sentinel-1-rtc
-  annees: [2024, 2025, 2026]             # années à traiter par défaut
+  annees: [2026]             # années à traiter par défaut
   orbites: []                 # liste vide = toutes les orbites ; sinon ex. [110]
   couverture_min_pct: 50      # couverture minimale de la zone pour garder une scène
   taille_sortie: [376, 256]   # hauteur, largeur en pixels (zone réduite d'un facteur 6)
