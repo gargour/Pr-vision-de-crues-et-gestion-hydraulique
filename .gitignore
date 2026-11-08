@@ -36,3 +36,5 @@ COPY tests ./tests
 COPY scripts ./scripts
 
 CMD ["python", "-m", "src.pipeline"]
+data/clean/s1/
+data/clean/s1_index.csv
